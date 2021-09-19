@@ -2,25 +2,41 @@
 // Created by Damir on 9/8/2021.
 //
 #include <iostream>
+#include <fstream>
+#include <filesystem>
+#include <string>
 
-#pragma once
+#include "Characters/Character.h"
+#include "Characters/SwordsmanChar.h"
+
+#include "Enemy.h"
+using namespace std;
+
 #ifndef GAME_GAME_H
 #define GAME_GAME_H
-
 
 class Game {
 public:
   Game();
   virtual ~Game();
+
   void mainMenu();
+  bool isPlaying() const;
+  void setPlaying(bool);
 
 private:
   int choice;
   bool playing;
-public:
-  [[nodiscard]] bool isPlaying() const;
 
-  void setPlaying(bool playing);
+  void playMenu(Character&);
+  void characterSelectMenu();
+
+  static void explore(Character&);
+  void showStats(Character&);
+  void restoreHP(Character&, int);
+
+  void saveCharacter(Character&);
+  bool loadCharacter(Character&);
 };
 
 
