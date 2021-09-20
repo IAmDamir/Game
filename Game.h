@@ -7,7 +7,7 @@
 #include <string>
 
 #include "Characters/Character.h"
-#include "Characters/SwordsmanChar.h"
+#include "Characters/Swordsman.h"
 
 #include "Enemy.h"
 using namespace std;
@@ -32,11 +32,11 @@ private:
   void characterSelectMenu();
 
   static void explore(Character&);
-  void showStats(Character&);
-  void restoreHP(Character&, int);
+  static void showStats(Character&);
+  static void restoreHP(Character&, int);
 
-  void saveCharacter(Character&);
-  bool loadCharacter(Character&);
+  static void saveCharacter(Character&);
+  static bool loadCharacter(Character&);
 };
 
 

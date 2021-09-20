@@ -32,18 +32,13 @@ int Item::getModifier() const {
 istream &operator>>(istream &is, Item &item) {
   string name, description;
   int modifier;
-  is >> name;
-
-
-  is >> modifier;
+  is >> name >> modifier;
   is.ignore();
   is.ignore();
 
   getline(is, description);
-  cout << name << " " << modifier << "\n" << description << "\n";
 
   item = Item(name, modifier, description);
-  cout << name << " " << modifier << "\n" << description << "\n";
   return is;
 }
 

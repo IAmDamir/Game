@@ -4,7 +4,8 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(int modifier) {
+Enemy::Enemy(int modifier, string name) {
+  this->name = name;
   this->modifier = modifier;
   RandomNumberGenerator randomNumberGenerator;
   maxHP = 12 + randomNumberGenerator.getRandomNumber() % 5 + this->modifier;
@@ -32,10 +33,10 @@ Item Enemy::getItem() {
 }
 
 void Enemy::encounter(Character &character) {
+  cout << "You've encountered a " + name << endl;
   RandomNumberGenerator randomNumberGenerator;
 
   while (HP > 0 && character.getHp() > 0) {
-    cout << randomNumberGenerator.getRandomNumber() << endl;
     cout << "Choose your actions" << endl << endl;
     cout << "1: Attack" << endl;
     cout << "0: Run" << endl;
@@ -52,13 +53,9 @@ void Enemy::encounter(Character &character) {
           characterAttackValue += character.getItems()[0].getModifier();
         }
         HP  = HP - characterAttackValue;
-        cout << "You've attacked the Enemy by " + to_string(characterAttackValue) << endl;
+        cout << "You've attacked the " + name + " by " + to_string(characterAttackValue) << endl;
 
         if (HP <= 0) {
-          cout << "Congrats, You've defeated the enemy" << endl;
-          character.equipItem(getItem());
-          int exp = modifier > 4? 20*modifier: 10*modifier;
-          character.gainExp(exp);
           break;
         }
 
@@ -68,10 +65,10 @@ void Enemy::encounter(Character &character) {
       case 2: {
         int chanceOfBeingCaught = randomNumberGenerator.getRandomNumber() % (maxHP - HP);
         if (chanceOfBeingCaught < 5) {
-          cout << "You've successfully slipped from enemy" << endl;
+          cout << "You've successfully slipped from " + name << endl;
           break;
         }
-        cout << "You've been caught by the enemy";
+        cout << "You've been caught by the " + name;
         attack(character);
         break;
       }
@@ -100,7 +97,7 @@ int Enemy::getMaxHp() const {
   return maxHP;
 }
 
-void Enemy::attack(Character character) const {
+void Enemy::attack(Character &character) const {
   RandomNumberGenerator randomNumberGenerator;
   int atkModifier = randomNumberGenerator.getRandomNumber() % modifier + 1;
   int enemyAttackValue = atk + atkModifier - character.getItems()[1].getModifier();
@@ -108,5 +105,5 @@ void Enemy::attack(Character character) const {
     enemyAttackValue = 0;
   }
   character.setHp(character.getHp() - enemyAttackValue);
-  cout << "The Enemy attacked You by " + to_string(enemyAttackValue) << endl;
+  cout << "The " + name + " attacked You by " + to_string(enemyAttackValue) << endl;
 }

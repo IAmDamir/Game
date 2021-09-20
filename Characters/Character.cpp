@@ -1,7 +1,5 @@
 #include "Character.h"
 
-#include <utility>
-
 Character::Character() {
   name = "";
   level = 1;
@@ -48,6 +46,9 @@ string Character::getStats(){
 
 void Character::gainExp(int exp) {
   int bonusExp = items[2].getName() != "No item"? 1 : items[2].getModifier();
+  if (level > 5) {
+    exp = exp/2;
+  }
 
   this->exp = this->exp + exp*bonusExp;
   while (this->exp >= 100){
@@ -151,7 +152,7 @@ void Character::equipItem(const Item &item) {
 
 std::ostream &operator<<(ostream &out, const Character &obj) {
   out << obj.getName() << " " << obj.getClassname() << "\n"
-      << obj.getMaxHp() << " " << obj.getHp() << "\n"
+      << obj.getHp() << " " << obj.getMaxHp() << "\n"
       << obj.getAtk() << "\n"
       << obj.getLevel() << " " << obj.getExp() << "\n"
       << obj.getItems()[0] << "\n"
@@ -164,7 +165,7 @@ std::ostream &operator<<(ostream &out, const Character &obj) {
 istream &operator>>(istream &is, Character &character) {
   string name, classname;
   int maxHP, HP, atk, level, exp;
-  is >> name >> classname >> maxHP >> HP >> atk >> level >> exp;
+  is >> name >> classname >> HP >> maxHP >> atk >> level >> exp;
 
   Item items[3];
   is >> items[0] >> items[1] >> items[2];

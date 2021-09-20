@@ -12,12 +12,12 @@ using namespace std;
 
 class Enemy {
 public:
-  explicit Enemy(int);
+  explicit Enemy(int, string);
   ~Enemy();
 
   void encounter(Character&);
 
-  void attack(Character) const;
+  void attack(Character&) const;
 
   int getMaxHp() const;
 
@@ -32,6 +32,7 @@ public:
   Item getItem();
 
 private:
+  string name;
   int maxHP;
   int HP;
   int atk;

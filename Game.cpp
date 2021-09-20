@@ -46,7 +46,7 @@ void Game::characterSelectMenu() {
 
   switch (choice) {
     case 1: {
-      character = SwordsmanChar();
+      character = Swordsman();
       break;
     }
     default: {
@@ -112,7 +112,13 @@ void Game::playMenu(Character &character) {
 
 void Game::explore(Character &character) {
   if (character.getLevel() > 9) {
+    Enemy boss(character.getLevel() + 5, "Boss");
+    boss.encounter(character);
 
+    if (boss.getHp() <= 0) {
+      cout << "Congrats, You've won the game" << endl;
+      character.setHp(0);
+    }
   } else {
     RandomNumberGenerator randomNumberGenerator;
     int randNum = randomNumberGenerator.getRandomNumber() % 10;
@@ -121,8 +127,15 @@ void Game::explore(Character &character) {
       character.gainExp(20);
       cout << "You've walked into empty room" << endl;
     } else {
-      Enemy enemy(character.getLevel());
+      Enemy enemy(character.getLevel(), "Enemy");
       enemy.encounter(character);
+
+      if (enemy.getHp() <= 0) {
+        cout << "Congrats, You've defeated the Enemy" << endl;
+        character.equipItem(enemy.getItem());
+        int exp = enemy.getModifier() > 4? 20*enemy.getModifier(): 10*enemy.getModifier();
+        character.gainExp(exp);
+      }
     }
   }
 }

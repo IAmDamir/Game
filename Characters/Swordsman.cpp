@@ -1,6 +1,6 @@
-#include "SwordsmanChar.h"
+#include "Swordsman.h"
 
-SwordsmanChar::SwordsmanChar() {
+Swordsman::Swordsman() {
   classname = "swordsman";
   maxHP = 15;
   HP = maxHP;
