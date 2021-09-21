@@ -16,51 +16,68 @@
 
 using namespace std;
 
+// A character class is a superclass of any class e.g. swordsman etc.
+// Currently, character have no gold because it cannot be used inside the game
+// TODO implement functions that will make gold valuable inside the game
+
+/* Classes was made because of misunderstanding, when making them I thought of second task
+ * 2.	List all classes and explain each of them with 1-2 sentence (20%)
+ * I thought "classes" mentioned here is character classes that could be chosen by the player
+ * So I made only one class, but it could be easily extended in the future
+ * - Temirgaliyev Damir
+ *  */
 class Character {
 public:
 
   Character();
-
+  // This constructor will set all attributes equal to ones that is in argument
+  // Made only for loading the exact same character from the file
   Character(string name, string classname, int maxHP, int HP, int atk, int level, int exp, Item* items);
 
   virtual ~Character();
 
+  // Adds exp
+  // TODO vary the exp gain for different characters
+  // TODO balance the exp gain
   virtual void gainExp(int exp);
 
+  // Equips the passed item if it is better than equipped one
   void equipItem(const Item&);
 
   string getStats();
 
-  const Item *getItems() const;
+  [[nodiscard]] const Item *getItems() const;
 
-  const string &getClassname() const;
+  [[nodiscard]] const string &getClassname() const;
 
-  const string &getName() const;
+  [[nodiscard]] const string &getName() const;
 
   void setName(const string &name);
 
-  int getMaxHp() const;
+  [[nodiscard]] int getMaxHp() const;
 
   void setMaxHp(int maxHp);
 
-  int getHp() const;
+  [[nodiscard]] int getHp() const;
 
   void setHp(int hp);
 
-  int getAtk() const;
+  [[nodiscard]] int getAtk() const;
 
   void setAtk(int atk);
 
-  int getLevel() const;
+  [[nodiscard]] int getLevel() const;
 
   void setLevel(int level);
 
-  int getExp() const;
+  [[nodiscard]] int getExp() const;
 
   void setExp(int exp);
 
+  // Overloading output operator to save character in file
   friend ostream & operator << (std::ostream &out, const Character & obj);
 
+  // Overloading input operator to load character from file
   friend istream & operator >> (istream& is, Character& character);
 
 protected:

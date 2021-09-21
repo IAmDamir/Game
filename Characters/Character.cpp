@@ -4,6 +4,7 @@ Character::Character() {
   name = "";
   level = 1;
   exp = 0;
+  // Sets default items
   items[0] = Weapon(0);
   items[1] = Armor(0);
   items[2] = Book(0);
@@ -45,12 +46,18 @@ string Character::getStats(){
 }
 
 void Character::gainExp(int exp) {
+  // Checks if book is equipped, if yes sets the additional bonus
   int bonusExp = items[2].getName() != "No item"? 1 : items[2].getModifier();
+
+  // Halves the exp gain if level is greater than 5
   if (level > 5) {
     exp = exp/2;
   }
 
+  // Calculates the level
   this->exp = this->exp + exp*bonusExp;
+  // Foreach gained level adds atk and maxHP and heals character to full
+  // TODO use math instead of brute force
   while (this->exp >= 100){
     level++;
 
@@ -83,6 +90,7 @@ int Character::getHp() const {
 }
 
 void Character::setHp(int hp) {
+  // Make unable to set HP more than maxHP
   if (hp > maxHP) {
     HP = maxHP;
   } else {
@@ -124,6 +132,8 @@ const Item *Character::getItems() const {
 
 void Character::equipItem(const Item &item) {
   bool isEquipped = false;
+  // Defines the type of item
+  // TODO find a better solution in order if there is infinitely many items
   if (item.getName() == "Weapon") {
     if (items[0].getModifier() < item.getModifier()) {
       items[0] = item;
@@ -142,6 +152,7 @@ void Character::equipItem(const Item &item) {
   } else {
     cout << "The Enemy haven't dropped any Item, good luck on your next time" << endl;
   }
+
   if (isEquipped) {
     cout << "You've equipped " + item.getName() + " " + item.getDescription() << endl;
   } else {

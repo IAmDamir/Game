@@ -8,9 +8,11 @@
 
 #include "Item.h"
 
+// Subclass of item class, adds an extra value to character's attacks
 class Weapon : public Item {
 public:
-  Weapon(int);
+  // Randomly generates modifier value for this item
+  explicit Weapon(int);
   ~Weapon() override;
 };
 

@@ -8,6 +8,7 @@
 
 #include "Item.h"
 
+// Subclass of item class, absorbs the damage taken
 class Armor : public Item {
 public:
   explicit Armor(int);

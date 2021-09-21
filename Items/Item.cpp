@@ -4,15 +4,23 @@
 
 #include "Item.h"
 
+
 Item::Item() {
+  name = "";
+  description = "";
+  modifier = 0;
+}
+
+Item::Item(int modifier) {
+  this->modifier = modifier;
   name = "";
   description = "";
 }
 
 Item::Item(string name, int modifier, string description) {
-  this->name = name;
+  this->name = std::move(name);
   this->modifier = modifier;
-  this->description = description;
+  this->description = std::move(description);
 }
 
 Item::~Item() = default;
@@ -33,9 +41,12 @@ istream &operator>>(istream &is, Item &item) {
   string name, description;
   int modifier;
   is >> name >> modifier;
+
+  // Ignores the endline characters to make sure that getline() will catch the next line
   is.ignore();
   is.ignore();
 
+  // Using a getline() function to get a full line until endline (not until whitespace)
   getline(is, description);
 
   item = Item(name, modifier, description);
@@ -48,3 +59,4 @@ std::ostream &operator<<(ostream &out, const Item &item) {
       << item.getDescription();
   return out;
 }
+

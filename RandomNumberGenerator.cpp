@@ -5,13 +5,15 @@
 #include "RandomNumberGenerator.h"
 
 RandomNumberGenerator::RandomNumberGenerator() {
-  srand(time(0));
+  // sets a seed for a random number generator
+  // seed is equal to current time
+  srand(time(nullptr));
 }
 
 RandomNumberGenerator::~RandomNumberGenerator() {
 
 }
-
+// Returns random a pseudo number
 int RandomNumberGenerator::getRandomNumber() {
   return rand();
 }

@@ -9,11 +9,13 @@
 #include <random>
 #include <ctime>
 
-
+// Class to generate a pseudo random numbers
 class RandomNumberGenerator {
 public:
   RandomNumberGenerator();
   ~RandomNumberGenerator();
+  // Returns random a pseudo number
+  // TODO set a smaller name for a method and a class since RandomNumberGenerator.getRandomNumber() is too large
   int getRandomNumber();
 };
 

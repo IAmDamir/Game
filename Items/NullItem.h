@@ -8,6 +8,7 @@
 
 #include "Item.h"
 
+// Subclass of Item class
 class NullItem : public Item {
 public:
   NullItem();

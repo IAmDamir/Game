@@ -3,8 +3,10 @@
 
 
 int main() {
-  Game game; // Game initialized
+  // Initializing a game
+  Game game;
   while (game.isPlaying()) {
+    // Starts a game
     game.mainMenu();
   }
 
